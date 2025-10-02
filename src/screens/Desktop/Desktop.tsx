@@ -50,6 +50,21 @@ const testimonials = [
     comment: "Really loved the blah blah blah...",
     rating: 5,
   },
+    {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
 ];
 
 const faqItems = [
@@ -95,13 +110,13 @@ export const Desktop = (): JSX.Element => {
         src="/building-2-1.png"
       />
 
-      <div className="absolute top-[-20vh] left-0 w-full h-[17vh] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
+      {/* <div className="relative top-[-20vh] left-0 w-full h-[17vh] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
 
-      <div className="absolute top-[-20vh] left-0 w-full h-[17vh] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
+      <div className="relative top-[-20vh] left-0 w-full h-[17vh] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
 
-      <div className="absolute top-[39vh] left-0 w-full h-[17vh] rotate-[-179.37deg] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
+      <div className="relative top-[39vh] left-0 w-full h-[17vh] rotate-[-179.37deg] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
 
-      <div className="absolute top-[39vh] left-0 w-full h-[17vh] rotate-[-179.37deg] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
+      <div className="relative top-[39vh] left-0 w-full h-[17vh] rotate-[-179.37deg] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" /> */}
 
       <section className="relative top-[15vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg md:text-xl lg:text-2xl text-center tracking-[0] leading-relaxed px-4">
@@ -151,7 +166,7 @@ export const Desktop = (): JSX.Element => {
           </Button>
         </div>
       </section>
-      <Button className="absolute top-[27.5vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
+      <Button className="absolute top-[105vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
         Book Now!
       </Button>
 
@@ -209,11 +224,13 @@ export const Desktop = (): JSX.Element => {
           Testimonials
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-          {testimonials.map((testimonial, index) => (
+        {/* First Row - 4 testimonials */}
+        <div className="flex flex-col">
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
+          {testimonials.slice(0, 4).map((testimonial, index) => (
             <Card
               key={index}
-              className="w-full min-h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
+              className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
             >
               <CardContent className="p-5 flex flex-col gap-3">
                 <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
@@ -239,6 +256,74 @@ export const Desktop = (): JSX.Element => {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        {/* Second Row - 3 testimonials */}
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 justify-center">
+          {testimonials.slice(4, 7).map((testimonial, index) => (
+            <Card
+              key={index + 4}
+              className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
+            >
+              <CardContent className="p-5 flex flex-col gap-3">
+                <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
+                  {testimonial.name}
+                </h3>
+
+                <div className="flex gap-1 justify-center">
+                  {Array.from({ length: testimonial.rating }).map(
+                    (_, starIndex) => (
+                      <StarIcon
+                        key={starIndex}
+                        className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                      />
+                    ),
+                  )}
+                </div>
+
+                <p
+                  className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
+                >
+                  {testimonial.comment}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Third Row - 4 testimonials */}
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {testimonials.slice(7, 11).map((testimonial, index) => (
+            <Card
+              key={index + 7}
+              className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
+            >
+              <CardContent className="p-5 flex flex-col gap-3">
+                <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
+                  {testimonial.name}
+                </h3>
+
+                <div className="flex gap-1 justify-center">
+                  {Array.from({ length: testimonial.rating }).map(
+                    (_, starIndex) => (
+                      <StarIcon
+                        key={starIndex}
+                        className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                      />
+                    ),
+                  )}
+                </div>
+
+                <p
+                  className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
+                >
+                  {testimonial.comment}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
         </div>
       </section>
 
@@ -337,19 +422,21 @@ export const Desktop = (): JSX.Element => {
         </div>
       </footer>
 
-      <header className="fixed top-0 left-0 right-0 w-full h-16 md:h-20 bg-white shadow-md z-50 flex items-center justify-between px-4 md:px-8">
-        <img
-          className="h-12 md:h-16 w-auto object-contain"
-          alt="JMB Resort Logo"
-          src="/group-32-3.png"
-        />
-
+      <header className="fixed top-0 left-0 right-0 w-full h-16 md:h-20 bg-white shadow-md z-50 flex items-center justify-between px-2 md:px-4 ">
+        
         <nav className="hidden md:flex [font-family:'Inria_Serif',Helvetica] font-bold text-black text-base lg:text-lg gap-6 lg:gap-8">
           <a href="#home" className="hover:text-gray-600">Home</a>
           <a href="#about" className="hover:text-gray-600">About us</a>
           <a href="#gallery" className="hover:text-gray-600">Gallery</a>
           <a href="#virtual-tour" className="hover:text-gray-600">Virtual Tour</a>
         </nav>
+
+        <img
+          className="h-[18vh] md:h-16 w-auto object-contain pt-5 pr-36"
+          alt="JMB Resort Logo"
+          src="/group-32-3.png"
+        />
+
 
         <Button className="w-32 md:w-40 lg:w-48 py-2 md:py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-sm md:text-base lg:text-lg hover:bg-gray-50 h-auto">
           Book Now!
