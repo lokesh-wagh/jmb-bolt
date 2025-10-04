@@ -154,10 +154,26 @@ export const Desktop = (): JSX.Element => {
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          <div className="w-full aspect-[16/11] bg-[#d9d9d9]" />
-          <div className="w-full aspect-[16/11] bg-[#d9d9d9]" />
-          <div className="w-full aspect-[16/11] bg-[#d9d9d9]" />
-          <div className="w-full aspect-[16/11] bg-[#d9d9d9]" />
+          <img
+            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
+            alt="Hotel Image 1"
+            src="/hotel1.jpg"
+          />
+          <img
+            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
+            alt="Hotel Image 2"
+            src="/hotel2.jpg"
+          />
+          <img
+            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
+            alt="Hotel Image 3"
+            src="/hotel3.jpg"
+          />
+          <img
+            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
+            alt="Hotel Image 4"
+            src="/hotel4.jpg"
+          />
         </div>
 
         <div className="flex justify-center mt-8">
@@ -175,12 +191,18 @@ export const Desktop = (): JSX.Element => {
         Virtual Tour
       </h2>
 
-      <div className="relative mt-24 mx-auto max-w-6xl px-4 md:px-8 lg:px-12 aspect-video bg-[#d9d9d9] flex items-start justify-start">
-        <img
-          className="w-16 h-20 md:w-20 md:h-24 lg:w-28 lg:h-32 object-contain"
-          alt="Polygon"
-          src="/polygon-1.svg"
-        />
+      <div className="relative mt-24 mx-auto max-w-6xl px-0 md:px-0 lg:px-0 aspect-video bg-[#d9d9d9] flex items-center justify-center overflow-hidden rounded-lg">
+        <video
+          className="w-full h-full object-fill rounded-lg"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/hotelvid.mp4" type="video/mp4" />
+          <source src="/virtual-tour-video.webm" type="video/webm" />
+          Your browser does not support the video tag.
+        </video>
       </div>
       
       <section className="relative mt-[10vh] mx-auto max-w-4xl px-4 py-12">
