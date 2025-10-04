@@ -1,5 +1,5 @@
-import { Star as StarIcon } from "lucide-react";
-import React from "react";
+import { Star as StarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import React, { useState, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -65,6 +65,176 @@ const testimonials = [
     comment: "Really loved the blah blah blah...",
     rating: 5,
   },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+    {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+   {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "No Comments",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+    {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+    {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+   {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "No Comments",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+    {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+    {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  },
+  {
+    name: "Suresh Kumar",
+    comment: "Really loved the blah blah blah...",
+    rating: 5,
+  }
 ];
 
 const faqItems = [
@@ -102,23 +272,90 @@ const faqItems = [
 ];
 
 export const Desktop = (): JSX.Element => {
+  const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  
+  const testimonialsPerPage = 11; // Show all testimonials in diamond pattern
+  const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
+
+  // Function to get current testimonials with smooth transition
+  const getCurrentTestimonials = () => {
+    const startIndex = currentTestimonialPage * testimonialsPerPage;
+    return testimonials.slice(startIndex, startIndex + testimonialsPerPage);
+  };
+
+  // Navigation functions with smooth transitions
+  const nextTestimonials = () => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentTestimonialPage((prev) => (prev + 1) % totalPages);
+      setTimeout(() => setIsTransitioning(false), 100);
+    }, 200);
+  };
+
+  const prevTestimonials = () => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setTimeout(() => {
+      setCurrentTestimonialPage((prev) => (prev - 1 + totalPages) % totalPages);
+      setTimeout(() => setIsTransitioning(false), 100);
+    }, 200);
+  };
+
+  // Handle manual navigation with pause
+  const handleManualNavigation = (direction: 'next' | 'prev') => {
+    setIsPaused(true);
+    if (direction === 'next') {
+      nextTestimonials();
+    } else {
+      prevTestimonials();
+    }
+    
+    // Resume auto-scroll after 8 seconds
+    setTimeout(() => {
+      setIsPaused(false);
+    }, 8000);
+  };
+
+  // Auto-scroll effect
+  useEffect(() => {
+    if (isPaused) return;
+    
+    const interval = setInterval(() => {
+      nextTestimonials();
+    }, 4000); // Change every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [currentTestimonialPage, isPaused]);
+
+  const currentTestimonials = getCurrentTestimonials();
+
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
       <img
-        className="relative top-[10vh] left-0 w-full object-cover"
+        className="relative top-[20vh] left-0 w-full object-cover"
         alt="Building"
         src="/building-2-1.png"
       />
 
-      {/* <div className="relative top-[-20vh] left-0 w-full h-[17vh] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
+      {/* 🔝 Top Blur Overlays */}
+     
+      
+      {/* 🔽 Bottom Blur Overlays */}
+      <div className="absolute top-[20vh] left-0 w-full h-[20vh] bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-10" />
+   
 
-      <div className="relative top-[-20vh] left-0 w-full h-[17vh] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
-
-      <div className="relative top-[39vh] left-0 w-full h-[17vh] rotate-[-179.37deg] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" />
-
-      <div className="relative top-[39vh] left-0 w-full h-[17vh] rotate-[-179.37deg] bg-[linear-gradient(0deg,rgba(255,255,255,0)_0%,rgba(255,255,255,1)_100%)]" /> */}
-
-      <section className="relative top-[15vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
+    
+    
+  
+      
+      {/* 💎 Corner blur accents */}
+  
+      <section className="relative top-[25vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg md:text-xl lg:text-2xl text-center tracking-[0] leading-relaxed px-4">
           JMB Resort is a premium destination designed to host your most
           cherished occasions. With elegant AC rooms, spacious lawns, and grand
@@ -246,105 +483,139 @@ export const Desktop = (): JSX.Element => {
           Testimonials
         </h2>
 
-        {/* First Row - 4 testimonials */}
-        <div className="flex flex-col">
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
-          {testimonials.slice(0, 4).map((testimonial, index) => (
-            <Card
-              key={index}
-              className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
-            >
-              <CardContent className="p-5 flex flex-col gap-3">
-                <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
-                  {testimonial.name}
-                </h3>
-
-                <div className="flex gap-1 justify-center">
-                  {Array.from({ length: testimonial.rating }).map(
-                    (_, starIndex) => (
-                      <StarIcon
-                        key={starIndex}
-                        className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                      />
-                    ),
-                  )}
-                </div>
-
-                <p
-                  className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
-                >
-                  {testimonial.comment}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+        {/* Navigation Buttons */}
+        <div className="flex justify-between items-center mb-8">
+          <Button
+            onClick={() => handleManualNavigation('prev')}
+            className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_2px_#00000020] hover:bg-gray-50 transition-all duration-200"
+          >
+            <ChevronLeft className="w-5 h-5" />
+            Previous
+          </Button>
+          
+          <div className="flex gap-2 items-center">
+            {Array.from({ length: totalPages }).map((_, pageIndex) => (
+              <div
+                key={pageIndex}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  pageIndex === currentTestimonialPage ? 'bg-black scale-110' : 'bg-gray-300'
+                }`}
+              />
+            ))}
+            {isPaused && (
+              <span className="ml-2 text-xs text-gray-500">Auto-scroll paused</span>
+            )}
+          </div>
+          
+          <Button
+            onClick={() => handleManualNavigation('next')}
+            className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_2px_#00000020] hover:bg-gray-50 transition-all duration-200"
+          >
+            Next
+            <ChevronRight className="w-5 h-5" />
+          </Button>
         </div>
 
-        {/* Second Row - 3 testimonials */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 justify-center">
-          {testimonials.slice(4, 7).map((testimonial, index) => (
-            <Card
-              key={index + 4}
-              className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
-            >
-              <CardContent className="p-5 flex flex-col gap-3">
-                <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
-                  {testimonial.name}
-                </h3>
+        {/* Testimonials with page-based transitions */}
+        <div className={`flex flex-col transition-all duration-500 ease-in-out ${isTransitioning ? 'opacity-0 transform translate-x-8' : 'opacity-100 transform translate-x-0'}`}>
+          {/* First Row - 4 testimonials */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
+            {currentTestimonials.slice(0, 4).map((testimonial, index) => (
+              <Card
+                key={index}
+                className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
+              >
+                <CardContent className="p-5 flex flex-col gap-3">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
+                    {testimonial.name}
+                  </h3>
 
-                <div className="flex gap-1 justify-center">
-                  {Array.from({ length: testimonial.rating }).map(
-                    (_, starIndex) => (
-                      <StarIcon
-                        key={starIndex}
-                        className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                      />
-                    ),
-                  )}
-                </div>
+                  <div className="flex gap-1 justify-center">
+                    {Array.from({ length: testimonial.rating }).map(
+                      (_, starIndex) => (
+                        <StarIcon
+                          key={starIndex}
+                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
+                  </div>
 
-                <p
-                  className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
-                >
-                  {testimonial.comment}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  <p
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
+                  >
+                    {testimonial.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-        {/* Third Row - 4 testimonials */}
-        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {testimonials.slice(7, 11).map((testimonial, index) => (
-            <Card
-              key={index + 7}
-              className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
-            >
-              <CardContent className="p-5 flex flex-col gap-3">
-                <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
-                  {testimonial.name}
-                </h3>
+          {/* Second Row - 3 testimonials */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 justify-center">
+            {currentTestimonials.slice(4, 7).map((testimonial, index) => (
+              <Card
+                key={index + 4}
+                className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
+              >
+                <CardContent className="p-5 flex flex-col gap-3">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
+                    {testimonial.name}
+                  </h3>
 
-                <div className="flex gap-1 justify-center">
-                  {Array.from({ length: testimonial.rating }).map(
-                    (_, starIndex) => (
-                      <StarIcon
-                        key={starIndex}
-                        className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                      />
-                    ),
-                  )}
-                </div>
+                  <div className="flex gap-1 justify-center">
+                    {Array.from({ length: testimonial.rating }).map(
+                      (_, starIndex) => (
+                        <StarIcon
+                          key={starIndex}
+                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
+                  </div>
 
-                <p
-                  className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
-                >
-                  {testimonial.comment}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+                  <p
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
+                  >
+                    {testimonial.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Third Row - 4 testimonials */}
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            {currentTestimonials.slice(7, 11).map((testimonial, index) => (
+              <Card
+                key={index + 7}
+                className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
+              >
+                <CardContent className="p-5 flex flex-col gap-3">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
+                    {testimonial.name}
+                  </h3>
+
+                  <div className="flex gap-1 justify-center">
+                    {Array.from({ length: testimonial.rating }).map(
+                      (_, starIndex) => (
+                        <StarIcon
+                          key={starIndex}
+                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
+                  </div>
+
+                  <p
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
+                  >
+                    {testimonial.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
         </div>
       </section>
@@ -444,9 +715,12 @@ export const Desktop = (): JSX.Element => {
         </div>
       </footer>
 
-      <header className="fixed top-0 left-0 right-0 w-full h-16 md:h-20 bg-white shadow-md z-50 flex items-center justify-between px-2 md:px-4 ">
+      <header className="fixed top-0 left-0 right-0 w-full h-24 md:h-32 bg-white  z-50 flex items-center justify-between px-2 md:px-4 ">
         
-        <nav className="hidden md:flex [font-family:'Inria_Serif',Helvetica] font-bold text-black text-base lg:text-lg gap-6 lg:gap-8">
+        {/* Simple blur div */}
+        
+        
+        <nav className="relative z-10 md:flex [font-family:'Inria_Serif',Helvetica] font-bold text-black text-base lg:text-lg gap-4 lg:gap-5 -mt-8 md:-mt-12">
           <a href="#home" className="hover:text-gray-600">Home</a>
           <a href="#about" className="hover:text-gray-600">About us</a>
           <a href="#gallery" className="hover:text-gray-600">Gallery</a>
@@ -454,15 +728,16 @@ export const Desktop = (): JSX.Element => {
         </nav>
 
         <img
-          className="h-[18vh] md:h-16 w-auto object-contain pt-5 pr-36"
+          className="h-[24vh] md:h-24 w-auto object-contain pt-4 pr-36"
           alt="JMB Resort Logo"
           src="/group-32-3.png"
         />
 
 
-        <Button className="w-32 md:w-40 lg:w-48 py-2 md:py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-sm md:text-base lg:text-lg hover:bg-gray-50 h-auto">
+        <Button className="w-32 md:w-40 lg:w-48 py-2 md:py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-sm md:text-base lg:text-lg hover:bg-gray-50 h-auto -mt-5 md:-mt-10">
           Book Now!
         </Button>
+        
       </header>
     </div>
   );
