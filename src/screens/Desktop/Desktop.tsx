@@ -1,5 +1,5 @@
 import { Star as StarIcon } from "lucide-react";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,6 +8,8 @@ import {
 } from "../../components/ui/accordion";
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
+import Navbar from "../../components/ui/navbar";
+
 
 const testimonials = [
   {
@@ -334,48 +336,17 @@ export const Desktop = (): JSX.Element => {
 
   const currentTestimonials = getCurrentTestimonials();
 
-  // Header stuck detection: when the sentinel leaves the viewport the header is considered "stuck"
-  const [isHeaderStuck, setIsHeaderStuck] = useState(false);
-  const headerSentinelRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const sentinel = headerSentinelRef.current;
-    if (!sentinel) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        // when sentinel is NOT intersecting, header has scrolled past it and is stuck
-        setIsHeaderStuck(!entry.isIntersecting);
-      },
-      { threshold: 0 }
-    );
-
-    observer.observe(sentinel);
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
+      
+      <Navbar/>
       <img
-        className="relative top-[20vh] left-0 w-full object-cover"
+        className="relative  left-0 w-full object-cover"
         alt="Building"
         src="/building-2-1.png"
       />
 
-      {/* 🔝 Top Blur Overlays */}
-     
-      
-      {/* 🔽 Bottom Blur Overlays */}
-      <div className="absolute top-[20vh] left-0 w-full h-[20vh] bg-gradient-to-b from-white via-white/80 to-transparent pointer-events-none z-10" />
-   
-
     
-    
-  
-      
-      {/* 💎 Corner blur accents */}
   
       <section className="relative top-[25vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg md:text-xl lg:text-2xl text-center tracking-[0] leading-relaxed px-4">
@@ -716,33 +687,7 @@ export const Desktop = (): JSX.Element => {
         </div>
       </footer>
 
-  {/* sentinel used to detect when header becomes stuck */}
-  <div ref={headerSentinelRef} className="w-full h-0" />
-
-  <header className={`fixed top-0 left-0 right-0 w-full h-24 md:h-32 bg-white z-50 flex items-center justify-between px-2 md:px-4 ${isHeaderStuck ? 'shadow-[0px_6px_20px_rgba(0,0,0,0.12)] backdrop-blur-sm' : ''}`}>
-        
-        {/* Simple blur div */}
-        
-        
-        <nav className="relative z-10 md:flex [font-family:'Inria_Serif',Helvetica] font-bold text-black text-base lg:text-lg gap-4 lg:gap-5 -mt-8 md:-mt-12">
-          <a href="#home" className="hover:text-gray-600">Home</a>
-          <a href="#about" className="hover:text-gray-600">About us</a>
-          <a href="#gallery" className="hover:text-gray-600">Gallery</a>
-          <a href="#virtual-tour" className="hover:text-gray-600">Virtual Tour</a>
-        </nav>
-
-        <img
-          className="h-[24vh] md:h-24 w-auto object-contain pt-4 pr-36"
-          alt="JMB Resort Logo"
-          src="/group-32-3.png"
-        />
-
-
-        <Button className="w-32 md:w-40 lg:w-48 py-2 md:py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-sm md:text-base lg:text-lg hover:bg-gray-50 h-auto -mt-5 md:-mt-10">
-          Book Now!
-        </Button>
-        
-      </header>
+      
     </div>
   );
 };
