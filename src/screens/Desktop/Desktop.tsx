@@ -312,6 +312,7 @@ export const Desktop = (): JSX.Element => {
   const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isGalleryFaded, setIsGalleryFaded] = useState(false);
   
   const testimonialsPerPage = 11; // Show all testimonials in diamond pattern
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
@@ -426,23 +427,41 @@ export const Desktop = (): JSX.Element => {
 
             {/* Render 4 images (2x2) and paginate by 2 on each View more click */}
             <div className="w-full">
-              <div className=" mx-auto">
+              <div className="relative mx-auto">
                 <div className="grid grid-cols-2 grid-rows-2 gap-4">
                   {Array.from({ length: 4 }).map((_, i) => {
                     const idx = (galleryIndex + i) % galleryImages.length;
                     const img = galleryImages[idx];
                     return (
-                      <div key={idx} className="w-full h-[40vh] md:h-[24vh] lg:h-[40vh] rounded-lg overflow-hidden shadow-md">
+                      <div key={idx} className={`relative w-full h-[40vh] md:h-[24vh] lg:h-[40vh] rounded-lg overflow-hidden shadow-md transform transition-all duration-300 ease-in-out ${isGalleryFaded ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
                         <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                        {/* overlay for specific positions: index+1 and index+3 */}
+                        {(i === 1 || i === 3) && (
+                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-85% to-white" />
+                          
+                        )}
+                       
                       </div>
                     );
                   })}
                 </div>
 
-                <div className="flex justify-center mt-6">
+                {/* positioned button: aligned to the right column, vertically centered between top & bottom right tiles */}
+                <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
                   <Button
-                    onClick={() => setGalleryIndex((prev) => (prev + 2) % galleryImages.length)}
-                    className="w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
+                    onClick={() => {
+                      if (isGalleryFaded) return; // prevent double clicks during transition
+                      const next = (galleryIndex + 2) % galleryImages.length;
+                      // fade out
+                      setIsGalleryFaded(true);
+                      // wait for fade-out, then update index and fade in
+                      setTimeout(() => {
+                        setGalleryIndex(next);
+                        // small timeout to ensure DOM updated, then fade in
+                        setTimeout(() => setIsGalleryFaded(false), 20);
+                      }, 220);
+                    }}
+                    className="w-[14.5%] min-w-[140px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
                   >
                     View more
                   </Button>
