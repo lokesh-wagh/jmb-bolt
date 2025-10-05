@@ -1,4 +1,4 @@
-import { Star as StarIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { Star as StarIcon } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import {
   Accordion,
@@ -483,140 +483,58 @@ export const Desktop = (): JSX.Element => {
           Testimonials
         </h2>
 
-        {/* Navigation Buttons */}
-        <div className="flex justify-between items-center mb-8">
-          <Button
-            onClick={() => handleManualNavigation('prev')}
-            className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_2px_#00000020] hover:bg-gray-50 transition-all duration-200"
-          >
-            <ChevronLeft className="w-5 h-5" />
-            Previous
-          </Button>
-          
-          <div className="flex gap-2 items-center">
-            {Array.from({ length: totalPages }).map((_, pageIndex) => (
-              <div
-                key={pageIndex}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                  pageIndex === currentTestimonialPage ? 'bg-black scale-110' : 'bg-gray-300'
-                }`}
-              />
+       
+
+        {/* Simple auto-scrolling testimonials (horizontal) */}
+        <style>
+          {` .outerDiv { width: 100%; display: block; overflow:hidden; }
+              .scroller { display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, 1fr); gap:16px; align-items:start; animation: scroll 20s linear infinite; }
+              .scroller .card { width: 320px; height: 180px; }
+              /* duplicate set width should be half of total scroller width — using translateX(-50%) works with duplicated content */
+              @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+          `}
+        </style>
+
+        <div className="outerDiv mt-6">
+          <div className="scroller">
+            {testimonials.map((t, i) => (
+              <div key={`t1-${i}`} className="card">
+                <Card className="w-full h-[220px] bg-white rounded-[12px] shadow-md overflow-hidden">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-sm">{t.name}</h4>
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: t.rating }).map((_, idx) => (
+                          <StarIcon key={idx} className="w-4 h-4 text-yellow-500" />
+                        ))}
+                      </div>
+                    </div>
+
+                    <p className="text-xs mt-3 leading-tight text-gray-700">{t.comment}</p>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
-            {isPaused && (
-              <span className="ml-2 text-xs text-gray-500">Auto-scroll paused</span>
-            )}
-          </div>
-          
-          <Button
-            onClick={() => handleManualNavigation('next')}
-            className="flex items-center gap-2 px-4 py-2 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_2px_#00000020] hover:bg-gray-50 transition-all duration-200"
-          >
-            Next
-            <ChevronRight className="w-5 h-5" />
-          </Button>
-        </div>
 
-        {/* Testimonials with page-based transitions */}
-        <div className={`flex flex-col transition-all duration-500 ease-in-out ${isTransitioning ? 'opacity-0 transform translate-x-8' : 'opacity-100 transform translate-x-0'}`}>
-          {/* First Row - 4 testimonials */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8">
-            {currentTestimonials.slice(0, 4).map((testimonial, index) => (
-              <Card
-                key={index}
-                className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
-              >
-                <CardContent className="p-5 flex flex-col gap-3">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
-                    {testimonial.name}
-                  </h3>
+            {testimonials.map((t, i) => (
+              <div key={`t2-${i}`} className="card">
+                <Card className="w-full h-[220px] bg-white rounded-[12px] shadow-md overflow-hidden">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-bold text-sm">{t.name}</h4>
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: t.rating }).map((_, idx) => (
+                          <StarIcon key={idx} className="w-4 h-4 text-yellow-500" />
+                        ))}
+                      </div>
+                    </div>
 
-                  <div className="flex gap-1 justify-center">
-                    {Array.from({ length: testimonial.rating }).map(
-                      (_, starIndex) => (
-                        <StarIcon
-                          key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
-                  >
-                    {testimonial.comment}
-                  </p>
-                </CardContent>
-              </Card>
+                    <p className="text-xs mt-3 leading-tight text-gray-700">{t.comment}</p>
+                  </CardContent>
+                </Card>
+              </div>
             ))}
           </div>
-
-          {/* Second Row - 3 testimonials */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-8 justify-center">
-            {currentTestimonials.slice(4, 7).map((testimonial, index) => (
-              <Card
-                key={index + 4}
-                className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
-              >
-                <CardContent className="p-5 flex flex-col gap-3">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
-                    {testimonial.name}
-                  </h3>
-
-                  <div className="flex gap-1 justify-center">
-                    {Array.from({ length: testimonial.rating }).map(
-                      (_, starIndex) => (
-                        <StarIcon
-                          key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
-                  >
-                    {testimonial.comment}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* Third Row - 4 testimonials */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {currentTestimonials.slice(7, 11).map((testimonial, index) => (
-              <Card
-                key={index + 7}
-                className="w-full h-[249px] bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040]"
-              >
-                <CardContent className="p-5 flex flex-col gap-3">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg text-center tracking-[0] leading-[normal]">
-                    {testimonial.name}
-                  </h3>
-
-                  <div className="flex gap-1 justify-center">
-                    {Array.from({ length: testimonial.rating }).map(
-                      (_, starIndex) => (
-                        <StarIcon
-                          key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg text-center tracking-[0] leading-[normal] mt-2`}
-                  >
-                    {testimonial.comment}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
         </div>
       </section>
 
