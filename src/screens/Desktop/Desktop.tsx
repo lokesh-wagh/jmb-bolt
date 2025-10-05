@@ -1,5 +1,5 @@
 import { Star as StarIcon } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -334,6 +334,28 @@ export const Desktop = (): JSX.Element => {
 
   const currentTestimonials = getCurrentTestimonials();
 
+  // Header stuck detection: when the sentinel leaves the viewport the header is considered "stuck"
+  const [isHeaderStuck, setIsHeaderStuck] = useState(false);
+  const headerSentinelRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const sentinel = headerSentinelRef.current;
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        // when sentinel is NOT intersecting, header has scrolled past it and is stuck
+        setIsHeaderStuck(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
       <img
@@ -478,8 +500,8 @@ export const Desktop = (): JSX.Element => {
 
      
 
-      <section className="relative mt-24 mx-auto max-w-7xl px-4 md:px-8 lg:px-12 py-12">
-        <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
+      <section className="relative mt-24  w-full ">
+        <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12 ">
           Testimonials
         </h2>
 
@@ -487,52 +509,116 @@ export const Desktop = (): JSX.Element => {
 
         {/* Simple auto-scrolling testimonials (horizontal) */}
         <style>
-          {` .outerDiv { width: 100%; display: block; overflow:hidden; }
-              .scroller { display: grid; grid-auto-flow: column; grid-template-rows: repeat(3, 1fr); gap:16px; align-items:start; animation: scroll 20s linear infinite; }
-              .scroller .card { width: 320px; height: 180px; }
+          {` .outerDiv { width: 100%; display: block; }
+              /* column gap (horizontal) then row gap (vertical) — adjust values as needed */
+              .scroller { display: grid; grid-auto-flow: column; column-gap: 1rem; row-gap: 2rem; align-items:start; animation: scroll 20s linear infinite; padding-top : 1rem ; padding-bottom : 1rem; }
+              .scroller .card { width: 30vw; height: 25vh; }
               /* duplicate set width should be half of total scroller width — using translateX(-50%) works with duplicated content */
               @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
           `}
         </style>
 
-        <div className="outerDiv mt-6">
-          <div className="scroller">
-            {testimonials.map((t, i) => (
-              <div key={`t1-${i}`} className="card">
-                <Card className="w-full h-[220px] bg-white rounded-[12px] shadow-md overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-bold text-sm">{t.name}</h4>
-                      <div className="flex items-center gap-1">
-                        {Array.from({ length: t.rating }).map((_, idx) => (
-                          <StarIcon key={idx} className="w-4 h-4 text-yellow-500" />
-                        ))}
-                      </div>
-                    </div>
+        <div className="outerDiv mt-6 p-0">
+         <div className="scroller">
+            {testimonials.map((testimonial, index) => (
+            
+                <Card
+                key={index}
+                className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
+              >
+                <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
+                    {testimonial.name}
+                  </h3>
 
-                    <p className="text-xs mt-3 leading-tight text-gray-700">{t.comment}</p>
-                  </CardContent>
-                </Card>
-              </div>
+                  <div className="flex gap-1 justify-start">
+                    {Array.from({ length: testimonial.rating }).map(
+                      (_, starIndex) => (
+                        <StarIcon
+                          key={starIndex}
+                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
+                  </div>
+
+                  <p
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
+                  >
+                    {testimonial.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            
             ))}
+          </div>
+          <div className="scroller" style={{ animation: 'scroll 20s linear infinite' }}>
+            <div className="w-[20vw]">
 
-            {testimonials.map((t, i) => (
-              <div key={`t2-${i}`} className="card">
-                <Card className="w-full h-[220px] bg-white rounded-[12px] shadow-md overflow-hidden">
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-bold text-sm">{t.name}</h4>
-                      <div className="flex items-center gap-1">
-                        {Array.from({ length: t.rating }).map((_, idx) => (
-                          <StarIcon key={idx} className="w-4 h-4 text-yellow-500" />
-                        ))}
-                      </div>
-                    </div>
+            </div>
+            {testimonials.map((testimonial, index) => (
+            
+                <Card
+                key={index}
+                className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
+              >
+                <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
+                    {testimonial.name}
+                  </h3>
 
-                    <p className="text-xs mt-3 leading-tight text-gray-700">{t.comment}</p>
-                  </CardContent>
-                </Card>
-              </div>
+                  <div className="flex gap-1 justify-start">
+                    {Array.from({ length: testimonial.rating }).map(
+                      (_, starIndex) => (
+                        <StarIcon
+                          key={starIndex}
+                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
+                  </div>
+
+                  <p
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
+                  >
+                    {testimonial.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            
+            ))}
+          </div>
+          <div className="scroller">
+            {testimonials.map((testimonial, index) => (
+            
+                <Card
+                key={index}
+                className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
+              >
+                <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
+                    {testimonial.name}
+                  </h3>
+
+                  <div className="flex gap-1 justify-start">
+                    {Array.from({ length: testimonial.rating }).map(
+                      (_, starIndex) => (
+                        <StarIcon
+                          key={starIndex}
+                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                        />
+                      ),
+                    )}
+                  </div>
+
+                  <p
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
+                  >
+                    {testimonial.comment}
+                  </p>
+                </CardContent>
+              </Card>
+            
             ))}
           </div>
         </div>
@@ -549,21 +635,18 @@ export const Desktop = (): JSX.Element => {
           className="w-full space-y-6"
         >
           {faqItems.map((item, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="border-none"
-            >
-              <AccordionTrigger
-                className="w-full min-h-[72px] bg-white rounded-[50px] shadow-[0px_0px_15px_5px_#00000040] px-6 md:px-12 lg:px-20 py-6 [font-family:'Inria_Serif',Helvetica] font-bold text-black text-base md:text-lg lg:text-xl text-center tracking-[0] leading-[normal] hover:no-underline data-[state=open]:rounded-[40px]"
-              >
-                {item.question}
-              </AccordionTrigger>
-              {item.answer && (
-                <AccordionContent className="px-6 md:px-12 lg:px-20 pt-4 [font-family:'Inria_Serif',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl text-center tracking-[0] leading-relaxed">
+            <AccordionItem key={index} value={`item-${index}`} className="border-none">
+              {/* single rounded container that holds trigger and content */}
+              <div className="w-full bg-white rounded-[50px] shadow-[0px_0px_15px_5px_#00000040] overflow-hidden">
+                <AccordionTrigger className="w-full min-h-[72px] px-6 md:px-12 lg:px-20 py-6 [font-family:'Inria_Serif',Helvetica] font-bold text-black text-base md:text-lg lg:text-xl text-left tracking-[0] leading-[normal] hover:no-underline data-[state=open]:rounded-[40px]">
+                  {item.question}
+                </AccordionTrigger>
+
+                {/* Content will be visually inside the same rounded container and only visible when item is open */}
+                <AccordionContent className="px-6 md:px-12 lg:px-20 pb-6 [font-family:'Inria_Serif',Helvetica] font-normal text-black text-base md:text-lg lg:text-xl text-left tracking-[0] leading-relaxed">
                   {item.answer}
                 </AccordionContent>
-              )}
+              </div>
             </AccordionItem>
           ))}
         </Accordion>
@@ -633,7 +716,10 @@ export const Desktop = (): JSX.Element => {
         </div>
       </footer>
 
-      <header className="fixed top-0 left-0 right-0 w-full h-24 md:h-32 bg-white  z-50 flex items-center justify-between px-2 md:px-4 ">
+  {/* sentinel used to detect when header becomes stuck */}
+  <div ref={headerSentinelRef} className="w-full h-0" />
+
+  <header className={`fixed top-0 left-0 right-0 w-full h-24 md:h-32 bg-white z-50 flex items-center justify-between px-2 md:px-4 ${isHeaderStuck ? 'shadow-[0px_6px_20px_rgba(0,0,0,0.12)] backdrop-blur-sm' : ''}`}>
         
         {/* Simple blur div */}
         
