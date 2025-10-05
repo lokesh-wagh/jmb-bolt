@@ -9,7 +9,7 @@ import {
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import Navbar from "../../components/ui/navbar";
-
+import GallerySection from "../../components/ui/gallery";
 
 const testimonials = [
   {
@@ -273,6 +273,41 @@ const faqItems = [
   },
 ];
 
+const galleryImages = [
+  {
+    src: "/hotel1.jpg",
+    alt: "Hotel Image 1",
+  },
+  {
+    src: "/hotel2.jpg",
+    alt: "Hotel Image 2",
+  },
+  {
+    src: "/hotel3.jpg",
+    alt: "Hotel Image 3",
+  },
+  {
+    src: "/hotel4.jpg",
+    alt: "Hotel Image 4",
+  },
+  {
+    src: "/hotel1.jpg",
+    alt: "Hotel Image 1",
+  },
+  {
+    src: "/hotel2.jpg",
+    alt: "Hotel Image 2",
+  },
+  {
+    src: "/hotel3.jpg",
+    alt: "Hotel Image 3",
+  },
+  {
+    src: "/hotel4.jpg",
+    alt: "Hotel Image 4",
+  },
+];
+
 export const Desktop = (): JSX.Element => {
   const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -336,6 +371,9 @@ export const Desktop = (): JSX.Element => {
 
   const currentTestimonials = getCurrentTestimonials();
 
+  // Gallery pagination state (show 4 images at a time, advance by 2)
+  const [galleryIndex, setGalleryIndex] = useState(0);
+
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
       
@@ -346,7 +384,7 @@ export const Desktop = (): JSX.Element => {
         src="/building-2-1.png"
       />
 
-    
+      <div className="absolute top-[145vh] left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent backdrop-blur-sm" />
   
       <section className="relative top-[25vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg md:text-xl lg:text-2xl text-center tracking-[0] leading-relaxed px-4">
@@ -378,40 +416,41 @@ export const Desktop = (): JSX.Element => {
           />
         </div>
       </section>
-       <section className="relative mt-[24vh] mx-auto max-w-7xl px-4 md:px-8 lg:px-12">
-        <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
-          Gallery
-        </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          <img
-            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
-            alt="Hotel Image 1"
-            src="/hotel1.jpg"
-          />
-          <img
-            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
-            alt="Hotel Image 2"
-            src="/hotel2.jpg"
-          />
-          <img
-            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
-            alt="Hotel Image 3"
-            src="/hotel3.jpg"
-          />
-          <img
-            className="w-full aspect-[16/11] object-cover rounded-lg shadow-md"
-            alt="Hotel Image 4"
-            src="/hotel4.jpg"
-          />
-        </div>
+      <section className="relative mt-[24vh] mx-auto max-w-7xl ">
+            <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
+              Gallery
+            </h2>
+      
+            {/* Gallery grid */ }
 
-        <div className="flex justify-center mt-8">
-          <Button className="w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
-            View more
-          </Button>
-        </div>
-      </section>
+            {/* Render 4 images (2x2) and paginate by 2 on each View more click */}
+            <div className="w-full">
+              <div className=" mx-auto">
+                <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                  {Array.from({ length: 4 }).map((_, i) => {
+                    const idx = (galleryIndex + i) % galleryImages.length;
+                    const img = galleryImages[idx];
+                    return (
+                      <div key={idx} className="w-full h-[40vh] md:h-[24vh] lg:h-[40vh] rounded-lg overflow-hidden shadow-md">
+                        <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                      </div>
+                    );
+                  })}
+                </div>
+
+                <div className="flex justify-center mt-6">
+                  <Button
+                    onClick={() => setGalleryIndex((prev) => (prev + 2) % galleryImages.length)}
+                    className="w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
+                  >
+                    View more
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </section>
+
       <Button className="absolute top-[105vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
         Book Now!
       </Button>
