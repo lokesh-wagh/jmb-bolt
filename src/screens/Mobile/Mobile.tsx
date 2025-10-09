@@ -183,8 +183,8 @@ export const Mobile = (): JSX.Element => {
 
       <div className="absolute top-[145vh] left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent backdrop-blur-sm" />
   
-      <section className="relative top-[25vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
-        <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg md:text-xl lg:text-2xl text-center tracking-[0] leading-relaxed px-4">
+      <section className="relative top-[7vh] left-[2.5%] right-[2.5%] w-[95%] flex flex-col gap-10 lg:gap-14">
+        <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-xs  text-center tracking-[0] leading-relaxed px-4">
           JMB Resort is a premium destination designed to host your most
           cherished occasions. With elegant AC rooms, spacious lawns, and grand
           AC halls, we blend modern luxury with warm hospitality. Perfect for
@@ -193,29 +193,29 @@ export const Mobile = (): JSX.Element => {
           unforgettable memories.
         </p>
 
-        <div className="mx-auto w-full max-w-4xl flex justify-around items-center px-4">
+        <div className="mx-auto w-full max-w-6xl flex justify-around items-center px-4">
           <img
-            className="w-[7.6%] max-w-[115px] h-auto object-contain"
+            className="w-[10%]  h-auto object-contain"
             alt="Rooms icon"
             src="/rooms-icon-1.png"
           />
 
           <img
-            className="w-[8.3%] max-w-[126px] h-auto object-contain"
+            className="w-[12%]  h-auto object-contain"
             alt="Lawns icon"
             src="/lawns-icon-1.png"
           />
 
           <img
-            className="w-[8.3%] max-w-[126px] h-auto object-contain"
+            className="w-[12%]  h-auto object-contain"
             alt="Halls icon"
             src="/halls-icon-1.png"
           />
         </div>
       </section>
 
-      <section className="relative mt-[24vh] mx-auto max-w-7xl ">
-            <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
+      <section className="relative mt-[16vh] mx-auto max-w-7xl ">
+            <h2 className="text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
               Gallery
             </h2>
       
@@ -224,19 +224,18 @@ export const Mobile = (): JSX.Element => {
             {/* Render 4 images (2x2) and paginate by 2 on each View more click */}
             <div className="w-full">
               <div className="relative mx-auto">
-                <div className="grid grid-cols-2 grid-rows-2 gap-4">
+                {/* Horizontal single-row gallery for mobile: render the same 4 items but in a row */}
+                <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
                   {Array.from({ length: 4 }).map((_, i) => {
                     const idx = (galleryIndex + i) % galleryImages.length;
                     const img = galleryImages[idx];
                     return (
-                      <div key={idx} className={`relative w-full h-[40vh] md:h-[24vh] lg:h-[40vh] rounded-lg overflow-hidden shadow-md transform transition-all duration-300 ease-in-out ${isGalleryFaded ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
+                      <div key={idx} className={`relative min-w-[75%] sm:min-w-[45%] h-[40vh] md:h-[24vh] lg:h-[40vh] rounded-lg overflow-hidden shadow-md flex-shrink-0 transform transition-all duration-300 ease-in-out ${isGalleryFaded ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
                         <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
                         {/* overlay for specific positions: index+1 and index+3 */}
-                        {(i === 1 || i === 3) && (
-                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-85% to-white" />
-                          
+                        {(true) && (
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-85% to-white" />
                         )}
-                       
                       </div>
                     );
                   })}
@@ -266,7 +265,7 @@ export const Mobile = (): JSX.Element => {
             </div>
           </section>
 
-      <Button className="absolute top-[105vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
+      <Button className="fixed top-[90vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
         Book Now!
       </Button>
 
