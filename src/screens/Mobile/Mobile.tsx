@@ -104,7 +104,7 @@ const galleryImages = [
   },
 ];
 
-export const Desktop = (): JSX.Element => {
+export const Mobile = (): JSX.Element => {
   const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
