@@ -257,7 +257,7 @@ export const Desktop = (): JSX.Element => {
                         setTimeout(() => setIsGalleryFaded(false), 20);
                       }, 220);
                     }}
-                    className="w-[14.5%] min-w-[140px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
+                    className="w-[5%] min-w-[140px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
                   >
                     View more
                   </Button>

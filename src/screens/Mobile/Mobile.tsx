@@ -170,7 +170,9 @@ export const Mobile = (): JSX.Element => {
 
   // Gallery pagination state (show 4 images at a time, advance by 2)
   const [galleryIndex, setGalleryIndex] = useState(0);
-
+  const idx = (galleryIndex ) % galleryImages.length;
+  const img = galleryImages[idx];
+  const imgNext = galleryImages[(galleryIndex + 1) % galleryImages.length];
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
       
@@ -214,7 +216,7 @@ export const Mobile = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="relative mt-[16vh] mx-auto max-w-7xl ">
+      <section className="relative mt-[12vh] mx-auto max-w-7xl ">
             <h2 className="text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
               Gallery
             </h2>
@@ -225,28 +227,42 @@ export const Mobile = (): JSX.Element => {
             <div className="w-full">
               <div className="relative mx-auto">
                 {/* Horizontal single-row gallery for mobile: render the same 4 items but in a row */}
-                <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2">
-                  {Array.from({ length: 4 }).map((_, i) => {
-                    const idx = (galleryIndex + i) % galleryImages.length;
-                    const img = galleryImages[idx];
-                    return (
-                      <div key={idx} className={`relative min-w-[75%] sm:min-w-[45%] h-[40vh] md:h-[24vh] lg:h-[40vh] rounded-lg overflow-hidden shadow-md flex-shrink-0 transform transition-all duration-300 ease-in-out ${isGalleryFaded ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
-                        <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
-                        {/* overlay for specific positions: index+1 and index+3 */}
-                        {(true) && (
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white via-85% to-white" />
-                        )}
+            <div className="flex gap-4 overflow-x-auto pb-4 -mx-2 px-2 snap-x snap-mandatory">
+              {
+                    
+                   
+                      <>
+                      <div key={idx} className={`relative m-1 w-[150%] h-[24vh]  overflow-hidden shadow-md transform transition-all duration-300 ease-in-out ${isGalleryFaded ? 'opacity-0 -translate-y-3' : 'opacity-100 translate-y-0'}`}>
+                          <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                        </div>
+                      <div
+                        key={idx + 1}
+                        className="relative w-[50%] h-[24vh] md:h-[24vh] lg:h-[40vh]  overflow-hidden shadow-md"
+                      >
+                        <img
+                        src={imgNext.src}
+                        alt={imgNext.alt}
+                        className="w-full h-full object-cover blur-[50px] scale-110 brightness-90"
+                      />
+
+                        <div className="absolute inset-0 bg-gray-500/90" />
                       </div>
-                    );
-                  })}
-                </div>
+
+                      
+                      </>
+                }
+
+             
+            </div>
+
+
 
                 {/* positioned button: aligned to the right column, vertically centered between top & bottom right tiles */}
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
                   <Button
                     onClick={() => {
                       if (isGalleryFaded) return; // prevent double clicks during transition
-                      const next = (galleryIndex + 2) % galleryImages.length;
+                      const next = (galleryIndex + 1) % galleryImages.length;
                       // fade out
                       setIsGalleryFaded(true);
                       // wait for fade-out, then update index and fade in
@@ -256,7 +272,7 @@ export const Mobile = (): JSX.Element => {
                         setTimeout(() => setIsGalleryFaded(false), 20);
                       }, 220);
                     }}
-                    className="w-[14.5%] min-w-[140px] max-w-[219px] py-3 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
+                    className="w-24 sm:w-28 py-2 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-sm  hover:bg-gray-50 "
                   >
                     View more
                   </Button>
@@ -265,18 +281,18 @@ export const Mobile = (): JSX.Element => {
             </div>
           </section>
 
-      <Button className="fixed top-[90vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
+      <Button className="fixed top-[90vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto z-50">
         Book Now!
       </Button>
 
 
-      <h2 className="relative mt-24 text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl">
+      <h2 className="relative mt-[7vh]  text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl">
         Virtual Tour
       </h2>
 
-      <div className="relative mt-24 mx-auto max-w-6xl px-0 md:px-0 lg:px-0 aspect-video bg-[#d9d9d9] flex items-center justify-center overflow-hidden rounded-lg">
+      <div className="relative mt-[5vh] mx-auto max-w-6xl px-2 aspect-video  flex items-center justify-center overflow-hidden rounded-lg">
         <video
-          className="w-full h-full object-fill rounded-lg"
+          className="w-full h-full object-fill "
           autoPlay
           loop
           muted
@@ -325,7 +341,7 @@ export const Mobile = (): JSX.Element => {
      
 
       <section className="relative mt-24  w-full ">
-        <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12 ">
+        <h2 className="text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12 ">
           Testimonials
         </h2>
 
@@ -336,7 +352,7 @@ export const Mobile = (): JSX.Element => {
           {` .outerDiv { width: 100%; display: block; }
               /* column gap (horizontal) then row gap (vertical) — adjust values as needed */
               .scroller { display: grid; grid-auto-flow: column; column-gap: 1rem; row-gap: 2rem; align-items:start; animation: scroll 20s linear infinite; padding-top : 1rem ; padding-bottom : 1rem; }
-              .scroller .card { width: 30vw; height: 25vh; }
+              .scroller .card { width: 70vw; height: 25vh; }
               /* duplicate set width should be half of total scroller width — using translateX(-50%) works with duplicated content */
               @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
           `}
@@ -351,7 +367,7 @@ export const Mobile = (): JSX.Element => {
                 className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
               >
                 <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-sm tracking-[0] leading-[normal]">
                     {testimonial.name}
                   </h3>
 
@@ -360,14 +376,14 @@ export const Mobile = (): JSX.Element => {
                       (_, starIndex) => (
                         <StarIcon
                           key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
                         />
                       ),
                     )}
                   </div>
 
                   <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-sm tracking-[0] leading-[normal] mt-2`}
                   >
                     {testimonial.comment}
                   </p>
@@ -377,7 +393,7 @@ export const Mobile = (): JSX.Element => {
             ))}
           </div>
           <div className="scroller" style={{ animation: 'scroll 20s linear infinite' }}>
-            <div className="w-[20vw]">
+            <div className="w-[40vw]">
 
             </div>
             {testimonials.map((testimonial, index) => (
@@ -387,7 +403,7 @@ export const Mobile = (): JSX.Element => {
                 className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
               >
                 <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-sm tracking-[0] leading-[normal]">
                     {testimonial.name}
                   </h3>
 
@@ -396,14 +412,14 @@ export const Mobile = (): JSX.Element => {
                       (_, starIndex) => (
                         <StarIcon
                           key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
                         />
                       ),
                     )}
                   </div>
 
                   <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-sm tracking-[0] leading-[normal] mt-2`}
                   >
                     {testimonial.comment}
                   </p>
@@ -415,12 +431,12 @@ export const Mobile = (): JSX.Element => {
           <div className="scroller">
             {testimonials.map((testimonial, index) => (
             
-                <Card
+               <Card
                 key={index}
                 className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
               >
                 <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
+                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-sm tracking-[0] leading-[normal]">
                     {testimonial.name}
                   </h3>
 
@@ -429,14 +445,14 @@ export const Mobile = (): JSX.Element => {
                       (_, starIndex) => (
                         <StarIcon
                           key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
+                          className="w-5 h-5 fill-yellow-400 text-yellow-400"
                         />
                       ),
                     )}
                   </div>
 
                   <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
+                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-sm tracking-[0] leading-[normal] mt-2`}
                   >
                     {testimonial.comment}
                   </p>
