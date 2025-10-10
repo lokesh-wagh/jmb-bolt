@@ -28,11 +28,13 @@ const Navbar = () => {
     return (
       <>
         {/* Spacer for scroll */}
-        <div className={`z-[-10] ${isScrolled ? "h-[12vh]" : "h-[20vh]"}`}></div>
-
+        <div className={`z-[-10] ${isScrolled ? "h-[12vh]" : "h-[18vh]"}`}></div>
+         <div className={`fixed z-10 left-0 right-0 bg-gradient-to-b from-white to-transparent  ${isScrolled ? 'top-[10vh] h-[10vh]' : 'top-[vh] h-[20vh]'}`}>
+     
+        </div>
         {/* Navbar */}
         <header
-          className={`fixed top-0 left-0 right-0 w-full z-50 backdrop-blur-md bg-white/60 border-b border-gray-200 transition-all duration-300 ${
+          className={`fixed top-0 left-0 right-0 w-full z-50 bg-white  transition-all duration-300 ${
             isScrolled ? "h-[12vh]" : "h-[18vh]"
           }`}
         >
@@ -63,7 +65,7 @@ const Navbar = () => {
         {/* Slide-in Sidebar Menu */}
         <div
           id="mobile-menu"
-          className={`fixed top-0 left-0 h-full w-[75%] sm:w-[60%] bg-white/70 backdrop-blur-xl shadow-lg z-40 transform transition-transform duration-500 ease-in-out
+          className={`fixed top-0 left-0 h-full w-[75%] sm:w-[60%] bg-white shadow-lg z-40 transform transition-transform duration-500 ease-in-out
             ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <nav className="flex flex-col mt-[15vh] items-start px-6 text-black font-bold [font-family:'Inria_Serif',Helvetica] gap-6 text-lg">
@@ -79,18 +81,13 @@ const Navbar = () => {
             <a href="#virtual-tour" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Virtual Tour
             </a>
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="bg-white text-black rounded-lg shadow-[0px_0px_6px_2px_#00000030] px-4 py-2 font-bold hover:bg-gray-50 transition-all"
-            >
-              Book Now!
-            </button>
+            
           </nav>
         </div>
 
         {/* Overlay & Push Content */}
         <div
-          className={`fixed inset-0 z-30 bg-black/30 backdrop-blur-sm transition-opacity duration-500 ${
+          className={`fixed inset-0 z-30 bg-black/30 transition-opacity duration-500 ${
             menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
           }`}
         />
