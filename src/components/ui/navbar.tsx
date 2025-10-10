@@ -38,7 +38,7 @@ const Navbar = () => {
             isScrolled ? "h-[12vh]" : "h-[18vh]"
           }`}
         >
-          <div className="relative flex items-center justify-between px-4 h-full">
+          <div className="relative flex items-center justify-between px-4 h-full ">
             {/* Hamburger Button */}
             <button
               id="menu-button"
@@ -65,10 +65,10 @@ const Navbar = () => {
         {/* Slide-in Sidebar Menu */}
         <div
           id="mobile-menu"
-          className={`fixed top-0 left-0 h-full w-[75%] sm:w-[60%] bg-white shadow-lg z-40 transform transition-transform duration-500 ease-in-out
+          className={`fixed top-0 left-0 h-full w-[75%] sm:w-[60%] bg-white shadow-lg z-40 transform transition-transform duration-500 ease-in-out bg-gradient-to-b from-white to-transparent 
             ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
-          <nav className="flex flex-col mt-[15vh] items-start px-6 text-black font-bold [font-family:'Inria_Serif',Helvetica] gap-6 text-lg">
+          <nav className="flex flex-col mt-[25vh] ml-[12vw] items-start px-6 text-black font-bold [font-family:'Inria_Serif',Helvetica] gap-6 text-lg">
             <a href="#home" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Home
             </a>
