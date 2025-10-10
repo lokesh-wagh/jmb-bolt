@@ -64,10 +64,14 @@ const Navbar = () => {
 
         {/* Slide-in Sidebar Menu */}
         <div
-          id="mobile-menu"
-          className={`fixed top-0 left-0 h-full w-[75%] sm:w-[60%] bg-white shadow-lg z-40 transform transition-transform duration-500 ease-in-out bg-gradient-to-b from-white to-transparent 
-            ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
-        >
+  id="mobile-menu"
+  className={`fixed top-0 left-0 h-full w-[75%] sm:w-[60%] z-40 transform transition-transform duration-500 ease-in-out 
+    ${menuOpen ? "translate-x-0" : "-translate-x-full"}
+    `}
+  style={{
+    background: "linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,0) 100%)",
+  }}
+>
           <nav className="flex flex-col mt-[25vh] ml-[12vw] items-start px-6 text-black font-bold [font-family:'Inria_Serif',Helvetica] gap-6 text-lg">
             <a href="#home" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Home
