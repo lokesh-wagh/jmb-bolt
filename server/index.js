@@ -3,17 +3,20 @@ const express = require('express');
 const cors = require('cors');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
-const { PORT: CONFIG_PORT, SMTP_USER: CONFIG_SMTP_USER, VERIFY_URL: CONFIG_VERIFY_URL } = require('./config');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = CONFIG_PORT || process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
 // In-memory user store: Map keyed by email
 const users = new Map();
 
+console.log(process.env.SMTP_HOST);
+console.log(process.env.SMTP_PORT);
+console.log(process.env.SMTP_USER);
+console.log(process.env.SMTP_PASS);
 // Basic transporter from environment variables
 function createTransporter() {
   const host = process.env.SMTP_HOST;
@@ -69,11 +72,11 @@ app.post('/api/register', async (req, res) => {
   // send token to user's email
   const transporter = createTransporter();
   const mailOptions = {
-    from:  CONFIG_SMTP_USER || process.env.SMTP_USER,
+    from:  process.env.SMTP_USER,
     to: email,
     subject: `Your verification token for JMB Resort`,
-    text: `Hello ${name},\n\nPlease verify your email by using this token:\n\n${token}\n\nOr visit: ${CONFIG_VERIFY_URL || process.env.VERIFY_URL || 'http://localhost:4000'}/api/verify?token=${token}\n\nThis link expires in 1 hour.`,
-    html: `<p>Hello ${name},</p><p>Please verify your email by using this token:</p><pre>${token}</pre><p>Or click: <a href="${CONFIG_VERIFY_URL || process.env.VERIFY_URL|| 'http://localhost:4000'}/api/verify?token=${token}">Verify email</a></p><p>This link expires in 1 hour.</p>`,
+    text: `Hello ${name},\n\nPlease verify your email by using this token:\n\n${token}\n\nOr visit: ${process.env.VERIFY_URL || 'http://localhost:4000/api'}/verify?token=${token}\n\nThis link expires in 1 hour.`,
+    html: `<p>Hello ${name},</p><p>Please verify your email by using this token:</p><pre>${token}</pre><p>Or click: <a href="${process.env.VERIFY_URL|| 'http://localhost:4000/api'}/verify?token=${token}">Verify email</a></p><p>This link expires in 1 hour.</p>`,
   };
 
   try {
