@@ -12,6 +12,7 @@ import Navbar from "../../components/ui/navbar";
 import GallerySection from "../../components/ui/gallery";
 import Footer from "../../components/ui/footer";
 import { useNavigate } from "react-router-dom";
+import { useBookingModal } from "../../components/BookingModalProvider";
 
 const testimonials = [
   {
@@ -176,6 +177,8 @@ export const Mobile = (): JSX.Element => {
   const idx = (galleryIndex ) % galleryImages.length;
   const img = galleryImages[idx];
   const imgNext = galleryImages[(galleryIndex + 1) % galleryImages.length];
+  const bookingModal = useBookingModal();
+
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
       
@@ -277,7 +280,7 @@ export const Mobile = (): JSX.Element => {
             </div>
           </section>
 
-      <Button className="fixed top-[90vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto z-50">
+      <Button onClick={() => bookingModal.open()} className="fixed top-[90vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto z-50">
         Book Now!
       </Button>
 

@@ -12,6 +12,7 @@ import { Card, CardContent } from "../../components/ui/card";
 import Navbar from "../../components/ui/navbar";
 import GallerySection from "../../components/ui/gallery";
 import Footer from "../../components/ui/footer";
+import { useBookingModal } from "../../components/BookingModalProvider";
 const testimonials = [
   {
     name: "Suresh Kumar",
@@ -172,6 +173,7 @@ export const Desktop = (): JSX.Element => {
   // Gallery pagination state (show 4 images at a time, advance by 2)
   const [galleryIndex, setGalleryIndex] = useState(0);
   const navigate = useNavigate();
+  const bookingModal = useBookingModal();
 
   return (
     <div className="bg-white overflow-x-hidden w-full min-h-screen relative">
@@ -260,7 +262,10 @@ export const Desktop = (): JSX.Element => {
             </div>
           </section>
 
-      <Button className="absolute top-[105vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto">
+      <Button
+        onClick={() => bookingModal.open()}
+        className="absolute top-[105vh] left-1/2 transform -translate-x-1/2 w-[14.5%] min-w-[180px] max-w-[219px] py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-lg md:text-xl hover:bg-gray-50 h-auto"
+      >
         Book Now!
       </Button>
 

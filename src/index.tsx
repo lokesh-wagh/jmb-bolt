@@ -1,6 +1,7 @@
 import { StrictMode, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import BookingModalProvider from "./components/BookingModalProvider";
 import { Desktop } from "./screens/Desktop/Desktop";
 import { Mobile } from "./screens/Mobile/Mobile";
 import Gallery from "./components/gallery";
@@ -29,10 +30,13 @@ function ResponsiveRoot(): JSX.Element {
 createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ResponsiveRoot />} />
-        <Route path="/gallery" element={<Gallery />} />
-      </Routes>
+      <BookingModalProvider>
+        <Routes>
+          <Route path="/" element={<ResponsiveRoot />} />
+          <Route path="/gallery" element={<Gallery />} />
+        </Routes>
+      </BookingModalProvider>
     </BrowserRouter>
   </StrictMode>,
 );
+

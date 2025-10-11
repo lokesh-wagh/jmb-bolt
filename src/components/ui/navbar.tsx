@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useBookingModal } from "../BookingModalProvider";
 import { Menu, X } from "lucide-react"; // for hamburger icons
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const bookingModal = useBookingModal();
 
   // scroll detection
   useEffect(() => {
@@ -147,7 +149,7 @@ const Navbar = () => {
         aria-hidden="true"
       />
 
-      <button className={`bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold hover:bg-gray-50 transition-all ${
+            <button onClick={() => bookingModal.open()} className={`bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold hover:bg-gray-50 transition-all ${
         isScrolled ? 'w-28 py-1 text-sm' : 'w-32 py-2 text-base'
       }`}> 
         Book Now!
