@@ -278,6 +278,7 @@ export const Desktop = (): JSX.Element => {
       <div className="relative mt-24 mx-auto max-w-6xl px-0 md:px-0 lg:px-0 aspect-video bg-[#d9d9d9] flex items-center justify-center overflow-hidden rounded-lg">
         <video
           className="w-full h-full object-fill rounded-lg"
+          controls
           autoPlay
           loop
           muted

@@ -13,21 +13,27 @@ const Footer: React.FC = () => (
             </div>
 
             <div className="flex justify-center gap-8 md:gap-12 mb-8">
-                <img
-                    className="w-12 h-12 md:w-16 md:h-16 object-contain"
-                    alt="Instagram"
-                    src="/black-and-white-instagram-logo-png-file-1.png"
-                />
-                <img
-                    className="w-12 h-12 md:w-16 md:h-16 object-contain"
-                    alt="Facebook"
-                    src="/facebook-app-round-white-icon-1.png"
-                />
-                <img
-                    className="w-12 h-12 md:w-16 md:h-16 object-contain"
-                    alt="Youtube"
-                    src="/youtube-app-white-icon-1.png"
-                />
+                <a href="https://www.instagram.com/the_jmb.resort?igsh=amR0Zjc2NjgzeHVz&utm_source=qr" target="_blank" rel="noopener noreferrer">
+                    <img
+                        className="w-12 h-12 md:w-16 md:h-16 object-contain"
+                        alt="Instagram"
+                        src="/black-and-white-instagram-logo-png-file-1.png"
+                    />
+                </a>
+                <a href="https://www.facebook.com/share/1BFwdTVhWD/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+                    <img
+                        className="w-12 h-12 md:w-16 md:h-16 object-contain"
+                        alt="Facebook"
+                        src="/facebook-app-round-white-icon-1.png"
+                    />
+                </a>
+                <a href="https://www.youtube.com/@jmbresort" target="_blank" rel="noopener noreferrer">
+                    <img
+                        className="w-12 h-12 md:w-16 md:h-16 object-contain"
+                        alt="Youtube"
+                        src="/youtube-app-white-icon-1.png"
+                    />
+                </a>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center mb-8">

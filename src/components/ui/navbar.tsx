@@ -79,16 +79,16 @@ const Navbar = () => {
   }}
 >
           <nav className="flex flex-col mt-[25vh] ml-[12vw] items-start px-6 text-black font-bold [font-family:'Inria_Serif',Helvetica] gap-6 text-lg">
-            <a href="#home" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
+            <a href="/#home" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Home
             </a>
-            <a href="#about" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
+            <a href="/#about" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               About Us
             </a>
-            <a href="#gallery" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
+            <a href="/#gallery" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Gallery
             </a>
-            <a href="#virtual-tour" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
+            <a href="/#virtual-tour" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Virtual Tour
             </a>
             
@@ -133,10 +133,10 @@ const Navbar = () => {
       <nav className={`flex [font-family:'Inria_Serif',Helvetica] font-bold text-black gap-4 ${
         isScrolled ? 'text-sm' : 'text-lg'
       }`}>
-        <a href="#home" className="hover:text-gray-600">Home</a>
-        <a href="#about" className="hover:text-gray-600">About us</a>
-        <a href="#gallery" className="hover:text-gray-600">Gallery</a>
-        <a href="#virtual-tour" className="hover:text-gray-600">Virtual Tour</a>
+        <a href="/#home" className="hover:text-gray-600">Home</a>
+        <a href="/#about" className="hover:text-gray-600">About us</a>
+        <a href="/#gallery" className="hover:text-gray-600">Gallery</a>
+        <a href="/#virtual-tour" className="hover:text-gray-600">Virtual Tour</a>
       </nav>
 
       {/* centered logo: absolutely centered inside the header container */}

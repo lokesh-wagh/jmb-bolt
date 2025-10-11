@@ -291,12 +291,13 @@ export const Mobile = (): JSX.Element => {
 
       <div className="relative mt-[5vh] mx-auto max-w-6xl px-2 aspect-video  flex items-center justify-center overflow-hidden rounded-lg">
         <video
-          className="w-full h-full object-fill "
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
+            className="w-full h-full object-fill "
+            controls
+            autoPlay
+            loop
+            muted
+            playsInline
+          >
           <source src="/hotelvid.mp4" type="video/mp4" />
           <source src="/virtual-tour-video.webm" type="video/webm" />
           Your browser does not support the video tag.
