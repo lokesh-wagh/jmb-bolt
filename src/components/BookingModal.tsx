@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// simple config file with REGISTER_URL/VERIFY_URL
-// CommonJS import because config.js is a plain JS module using module.exports
-const { REGISTER_URL } = require('../../config');
+
+// Use Vite-exposed env variable. Ensure you have VITE_REGISTER_URL in your project .env
+const REGISTER_URL = (import.meta as any).env?.VITE_REGISTER_URL || 'http://localhost:4000/api/register';
 
 type Props = {
   open: boolean;
