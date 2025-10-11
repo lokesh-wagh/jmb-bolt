@@ -252,7 +252,15 @@ export const Mobile = (): JSX.Element => {
                         className="w-full h-full object-cover blur-[50px] scale-110 brightness-90"
                       />
 
-                        <div className="absolute inset-0 bg-gray-500/90" />
+                      <div className="absolute inset-0 bg-gray-500/90" />
+                      {/* gradient overlay on top: transparent -> white (left to right) */}
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 pointer-events-none transition-opacity duration-300"
+                        style={{
+                          background: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)',
+                        }}
+                      />
                       </div>
 
                       
