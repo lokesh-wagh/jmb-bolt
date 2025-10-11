@@ -9,6 +9,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!open) {
@@ -20,15 +21,36 @@ const BookingModal: React.FC<Props> = ({ open, onClose }) => {
 
   if (!open) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || !phone.trim() || !email.trim()) {
       alert('Please fill all fields');
       return;
     }
-    console.log('Booking submitted:', { name, phone, email });
-    alert(`Thanks ${name}, we'll contact you at ${phone}.`);
-    onClose();
+
+    setLoading(true);
+    try {
+      const res = await fetch('http://localhost:4000/api/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, email }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        console.error('Register failed', data);
+        alert(data && data.error ? data.error : 'Registration failed');
+        return;
+      }
+
+      alert('Registration received. A verification email has been sent — please check your inbox.');
+      onClose();
+    } catch (err) {
+      console.error('Request failed', err);
+      alert('Network error — please try again later.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -52,11 +74,11 @@ const BookingModal: React.FC<Props> = ({ open, onClose }) => {
           </label>
 
           <div className="flex justify-center gap-4 mt-4 w-full">
-            <button type="button" onClick={onClose} className="min-w-[140px] px-4 py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold hover:bg-gray-50">
+            <button type="button" onClick={onClose} disabled={loading} className={`min-w-[140px] px-4 py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold hover:bg-gray-50 ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}>
               Cancel
             </button>
-            <button type="submit" className="min-w-[140px] px-4 py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold hover:bg-gray-50">
-              Submit
+            <button type="submit" disabled={loading} className={`min-w-[140px] px-4 py-3 bg-white text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold hover:bg-gray-50 ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}>
+              {loading ? 'Sending…' : 'Submit'}
             </button>
           </div>
         </form>
