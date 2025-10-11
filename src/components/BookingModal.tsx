@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+// simple config file with REGISTER_URL/VERIFY_URL
+// CommonJS import because config.js is a plain JS module using module.exports
+const { REGISTER_URL } = require('../../config');
 
 type Props = {
   open: boolean;
@@ -30,7 +33,7 @@ const BookingModal: React.FC<Props> = ({ open, onClose }) => {
 
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:4000/api/register', {
+      const res = await fetch(REGISTER_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, phone, email }),
