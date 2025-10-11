@@ -180,6 +180,7 @@ export const Desktop = (): JSX.Element => {
       
       <Navbar/>
       <img
+      id="home"
         className="relative  left-0 w-full object-cover"
         alt="Building"
         src="/building-2-1.png"
@@ -187,7 +188,7 @@ export const Desktop = (): JSX.Element => {
 
       <div className="absolute top-[145vh] left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent backdrop-blur-sm" />
   
-      <section id="home" className="relative top-[25vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
+      <section  className="relative top-[25vh] left-[7.6%] right-[7.6%] w-[85%] flex flex-col gap-12 lg:gap-16">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg md:text-xl lg:text-2xl text-center tracking-[0] leading-relaxed px-4">
           JMB Resort is a premium destination designed to host your most
           cherished occasions. With elegant AC rooms, spacious lawns, and grand

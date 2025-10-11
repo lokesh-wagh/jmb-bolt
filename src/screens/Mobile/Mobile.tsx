@@ -184,7 +184,7 @@ export const Mobile = (): JSX.Element => {
       
       <Navbar/>
       <img
-      
+      id="home"
         className="relative  left-0 w-full object-cover"
         alt="Building"
         src="/building-2-1.png"
@@ -192,7 +192,7 @@ export const Mobile = (): JSX.Element => {
 
       <div className="absolute top-[145vh] left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent backdrop-blur-sm" />
   
-      <section  id="#home" className="relative top-[7vh] left-[2.5%] right-[2.5%] w-[95%] flex flex-col gap-10 lg:gap-14">
+      <section   className="relative top-[7vh] left-[2.5%] right-[2.5%] w-[95%] flex flex-col gap-10 lg:gap-14">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-xs  text-center tracking-[0] leading-relaxed px-4">
           JMB Resort is a premium destination designed to host your most
           cherished occasions. With elegant AC rooms, spacious lawns, and grand
