@@ -10,6 +10,8 @@ import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import Navbar from "../../components/ui/navbar";
 import GallerySection from "../../components/ui/gallery";
+import Footer from "../../components/ui/footer";
+import { useNavigate } from "react-router-dom";
 
 const testimonials = [
   {
@@ -112,6 +114,7 @@ export const Mobile = (): JSX.Element => {
   
   const testimonialsPerPage = 11; // Show all testimonials in diamond pattern
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
+ const navigate = useNavigate();
 
   // Function to get current testimonials with smooth transition
   const getCurrentTestimonials = () => {
@@ -178,6 +181,7 @@ export const Mobile = (): JSX.Element => {
       
       <Navbar/>
       <img
+      
         className="relative  left-0 w-full object-cover"
         alt="Building"
         src="/building-2-1.png"
@@ -185,7 +189,7 @@ export const Mobile = (): JSX.Element => {
 
       <div className="absolute top-[145vh] left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent backdrop-blur-sm" />
   
-      <section className="relative top-[7vh] left-[2.5%] right-[2.5%] w-[95%] flex flex-col gap-10 lg:gap-14">
+      <section  id="#home" className="relative top-[7vh] left-[2.5%] right-[2.5%] w-[95%] flex flex-col gap-10 lg:gap-14">
         <p className="w-full [font-family:'Inria_Serif',Helvetica] font-bold text-black text-xs  text-center tracking-[0] leading-relaxed px-4">
           JMB Resort is a premium destination designed to host your most
           cherished occasions. With elegant AC rooms, spacious lawns, and grand
@@ -216,7 +220,7 @@ export const Mobile = (): JSX.Element => {
         </div>
       </section>
 
-      <section className="relative mt-[12vh] mx-auto max-w-7xl ">
+      <section id="gallery" className="relative mt-[12vh] mx-auto max-w-7xl ">
             <h2 className="text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
               Gallery
             </h2>
@@ -260,17 +264,9 @@ export const Mobile = (): JSX.Element => {
                 {/* positioned button: aligned to the right column, vertically centered between top & bottom right tiles */}
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10">
                   <Button
-                    onClick={() => {
-                      if (isGalleryFaded) return; // prevent double clicks during transition
-                      const next = (galleryIndex + 1) % galleryImages.length;
-                      // fade out
-                      setIsGalleryFaded(true);
-                      // wait for fade-out, then update index and fade in
-                      setTimeout(() => {
-                        setGalleryIndex(next);
-                        // small timeout to ensure DOM updated, then fade in
-                        setTimeout(() => setIsGalleryFaded(false), 20);
-                      }, 220);
+                     onClick={() => {
+                      // navigate to the dedicated gallery page
+                      navigate('/gallery');
                     }}
                     className="w-24 sm:w-28 py-2 bg-[#fffbfb] text-black rounded-[10px] shadow-[0px_0px_7px_4px_#00000040] [font-family:'Inria_Serif',Helvetica] font-bold text-sm  hover:bg-gray-50 "
                   >
@@ -286,7 +282,7 @@ export const Mobile = (): JSX.Element => {
       </Button>
 
 
-      <h2 className="relative mt-[7vh]  text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl">
+      <h2 id="virtual-tour" className="relative mt-[7vh]  text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl">
         Virtual Tour
       </h2>
 
@@ -304,7 +300,7 @@ export const Mobile = (): JSX.Element => {
         </video>
       </div>
       
-      <section className="relative mt-[10vh] mx-auto max-w-4xl px-4 py-12">
+      <section id="about" className="relative mt-[10vh] mx-auto max-w-4xl px-4 py-12">
         <h2 className="text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-8">
           Our Vision
         </h2>
@@ -494,67 +490,7 @@ export const Mobile = (): JSX.Element => {
 
       
 
-      <footer className="relative mt-24 w-full bg-[#424242] py-12 px-4 md:px-8 lg:px-12">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-8">
-            <span className="[font-family:'Inria_Serif',Helvetica] font-bold text-white text-lg md:text-xl block">
-              The JMB Resort
-            </span>
-            <span className="[font-family:'Inria_Serif',Helvetica] font-normal text-white text-base md:text-lg">
-              All rights reserved
-            </span>
-          </div>
-
-          <div className="flex justify-center gap-8 md:gap-12 mb-8">
-            <img
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
-              alt="Instagram"
-              src="/black-and-white-instagram-logo-png-file-1.png"
-            />
-            <img
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
-              alt="Facebook"
-              src="/facebook-app-round-white-icon-1.png"
-            />
-            <img
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
-              alt="Youtube"
-              src="/youtube-app-white-icon-1.png"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-center mb-8">
-            <div className="[font-family:'Inria_Serif',Helvetica] text-white text-sm md:text-base">
-              <span className="font-bold underline block mb-2">Call us on</span>
-              <span>
-                +91 99999 99991<br />
-                +91 99999 99992<br />
-                +91 99999 99993
-              </span>
-            </div>
-
-            <div className="[font-family:'Inria_Serif',Helvetica] text-white text-sm md:text-base">
-              <span className="font-bold underline block mb-2">Visit us at</span>
-              <span>
-                Sahodara (in front of Bharat petrol pump), Sahraspali,
-                Ballia-277001
-              </span>
-            </div>
-
-            <div className="[font-family:'Inria_Serif',Helvetica] text-white text-sm md:text-base">
-              <span className="font-bold underline block mb-2">e-Mail us on</span>
-              <span>helpdesk@jmbresort.com</span>
-            </div>
-          </div>
-
-          <p className="[font-family:'Inria_Serif',Helvetica] font-normal text-white text-xs md:text-sm text-center max-w-4xl mx-auto">
-            Please note that the images in the website might be slightly
-            different than the actual resort as the resort is in its finishing
-            stage. The actual images will be updated soon. Until then, please
-            visit the site at given address for actual views.
-          </p>
-        </div>
-      </footer>
+      <Footer/>
 
       
     </div>

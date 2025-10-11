@@ -1,8 +1,9 @@
 import { StrictMode, useEffect, useMemo, useState } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Desktop } from "./screens/Desktop/Desktop";
 import { Mobile } from "./screens/Mobile/Mobile";
-
+import Gallery from "./components/gallery";
 // Small wrapper that picks Desktop or Mobile depending on viewport width.
 // Uses matchMedia so it updates on resize without remounting the whole app.
 function ResponsiveRoot(): JSX.Element {
@@ -23,8 +24,15 @@ function ResponsiveRoot(): JSX.Element {
   return isMobile ? <Mobile /> : <Desktop />;
 }
 
+// Small route that navigates to home and then scrolls to the #gallery element
+
 createRoot(document.getElementById("app") as HTMLElement).render(
   <StrictMode>
-    <ResponsiveRoot />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ResponsiveRoot />} />
+        <Route path="/gallery" element={<Gallery />} />
+      </Routes>
+    </BrowserRouter>
   </StrictMode>,
 );
