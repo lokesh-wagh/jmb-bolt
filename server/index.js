@@ -199,13 +199,47 @@ app.get('/api/verify', async (req, res) => {
         return res.status(500).json({ ok: false, error: msg, details: mailErr && mailErr.message });
       }
     }
+    // send verified user details to AFTER_VERIFICATION_EMAIL (if configured)
+    let afterEmailResult = null;
+    const afterEmail = process.env.AFTER_VERIFICATION_EMAIL;
+    if (afterEmail) {
+      const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      if (emailPattern.test(String(afterEmail))) {
+        try {
+          const transporter2 = createTransporter();
+          const userEmail = (payload && payload.email) || null;
+          const userDetails = users.get(userEmail) || { email: userEmail };
+          const mailOptions2 = {
+            from: process.env.SMTP_USER,
+            to: afterEmail,
+            subject: `User verified: ${userEmail || 'unknown'}`,
+            text: `User verified:\n\n${JSON.stringify(userDetails, null, 2)}`,
+            html: `<p>User verified:</p><pre>${escapeHtml(JSON.stringify(userDetails, null, 2))}</pre>`,
+          };
+
+          const info2 = await transporter2.sendMail(mailOptions2);
+          console.log('After-verification email sent to', afterEmail, info2 && info2.messageId);
+          afterEmailResult = { to: afterEmail, queued: true, messageId: info2 && info2.messageId };
+        } catch (afterErr) {
+          console.error('Failed to send after-verification email', afterErr);
+          afterEmailResult = { to: afterEmail, queued: false, error: afterErr && afterErr.message };
+        }
+      } else {
+        console.warn('AFTER_VERIFICATION_EMAIL is invalid:', afterEmail);
+        afterEmailResult = { to: afterEmail, queued: false, error: 'invalid email format' };
+      }
+    }
+
     console.log(users)
     // Default success response
     if (wantsHtml) {
-      return res.send(renderHtml('Verified', `<p>Your email <strong>${(payload && payload.email) || 'unknown'}</strong> has been successfully verified.</p>`));
+      const extra = afterEmailResult && afterEmailResult.queued
+        ? `<p>An administrative notification was sent to <strong>${escapeHtml(afterEmailResult.to)}</strong>.</p>`
+        : (afterEmailResult ? `<p>Failed to notify <strong>${escapeHtml(afterEmailResult.to)}</strong>. Check server logs.</p>` : '');
+      return res.send(renderHtml('Verified', `<p>Your email <strong>${(payload && payload.email) || 'unknown'}</strong> has been successfully verified.</p>${extra}`));
     }
 
-    return res.json({ ok: true, payload });
+    return res.json({ ok: true, payload, afterEmail: afterEmailResult });
   } catch (err) {
     const msg = 'invalid token';
     if (wantsHtml) return res.status(401).send(renderHtml('Verification failed', `<p>${msg}</p><pre>${err && err.message}</pre>`));
