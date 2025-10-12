@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 // Use Vite-exposed env variable. Ensure you have VITE_REGISTER_URL in your project .env
-const REGISTER_URL = (import.meta as any).env?.VITE_REGISTER_URL || 'http://34.131.231.250/api/register';
+const REGISTER_URL = (import.meta as any).env?.VITE_REGISTER_URL || 'https://jmbresort.com/api/register';
 
 type Props = {
   open: boolean;

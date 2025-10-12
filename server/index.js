@@ -75,8 +75,8 @@ app.post('/api/register', async (req, res) => {
     from:  process.env.SMTP_USER,
     to: email,
     subject: `Your verification token for JMB Resort`,
-    text: `Hello ${name},\n\nPlease verify your email by using this token:\n\n${token}\n\nOr visit: ${process.env.VERIFY_URL || 'http://localhost:4000/api'}/verify?token=${token}\n\nThis link expires in 1 hour.`,
-    html: `<p>Hello ${name},</p><p>Please verify your email by using this token:</p><pre>${token}</pre><p>Or click: <a href="${process.env.VERIFY_URL|| 'http://localhost:4000/api'}/verify?token=${token}">Verify email</a></p><p>This link expires in 1 hour.</p>`,
+    text: `Hello ${name},\n\nPlease verify your email by using this token:\n\n${token}\n\nOr visit: ${process.env.VERIFY_URL || 'https://jmbresort.com/api'}/verify?token=${token}\n\nThis link expires in 1 hour.`,
+    html: `<p>Hello ${name},</p><p>Please verify your email by using this token:</p><pre>${token}</pre><p>Or click: <a href="${process.env.VERIFY_URL|| 'https://jmbresort.com/api'}/verify?token=${token}">Verify email</a></p><p>This link expires in 1 hour.</p>`,
   };
 
   try {

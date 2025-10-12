@@ -32,11 +32,12 @@ const Navbar = () => {
         {/* Spacer for scroll */}
         <div className={`z-[-10] ${isScrolled ? "h-[12vh]" : "h-[18vh]"}`}></div>
          <div className={`fixed z-10 left-0 right-0 bg-gradient-to-b from-white to-transparent  ${isScrolled ? 'top-[10vh] h-[10vh]' : 'top-[vh] h-[20vh]'}`}>
-     
+          
         </div>
+        
 
          <div className={`fixed z-10 left-0 right-0 bottom-0 bg-gradient-to-b from-transparent to-white  ${isScrolled ? ' h-[10vh]' : ' h-[20vh]'}`}>
-     
+         
         </div>
         {/* Navbar */}
         <header
