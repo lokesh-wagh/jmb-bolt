@@ -89,8 +89,8 @@ const Navbar = () => {
             <a href="/#gallery" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
               Gallery
             </a>
-            <a href="/#virtual-tour" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
-              Virtual Tour
+            <a href="/#virtual-invitation" onClick={() => setMenuOpen(false)} className="hover:text-gray-600">
+              Virtual Invitation
             </a>
             
           </nav>
@@ -137,7 +137,7 @@ const Navbar = () => {
         <a href="/#home" className="hover:text-gray-600">Home</a>
         <a href="/#about" className="hover:text-gray-600">About us</a>
         <a href="/#gallery" className="hover:text-gray-600">Gallery</a>
-        <a href="/#virtual-tour" className="hover:text-gray-600">Virtual Tour</a>
+  <a href="/#virtual-invitation" className="hover:text-gray-600">Virtual Invitation</a>
       </nav>
 
       {/* centered logo: absolutely centered inside the header container */}

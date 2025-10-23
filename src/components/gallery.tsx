@@ -3,12 +3,19 @@ import Navbar from "./ui/navbar";
 import Footer from "./ui/footer";
 
 const images = [
-    "https://picsum.photos/id/1015/300/200",
-    "https://picsum.photos/id/1016/300/200",
-    "https://picsum.photos/id/1018/300/200",
-    "https://picsum.photos/id/1020/300/200",
-    "https://picsum.photos/id/1024/300/200",
-    "https://picsum.photos/id/1025/300/200",
+    "/jmb1.jpg",
+    "/jmb2.jpg",
+    "/jmb3.jpg",
+    "/jmb4.jpg",
+    "/jmb5.jpg",
+    "/jmb6.jpg",
+    "/jmb7.jpg",
+    "/jmb8.jpg",
+    "/jmb9.jpg",
+    "/jmb10.jpg",
+    "/jmb11.jpg",
+    "/jmb12.jpg",
+    "/jmb13.jpg",
 ];
 
 const Gallery: React.FC = () => (

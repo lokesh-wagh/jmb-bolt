@@ -1,5 +1,5 @@
 import { Star as StarIcon } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Accordion,
@@ -10,7 +10,6 @@ import {
 import { Button } from "../../components/ui/button";
 import { Card, CardContent } from "../../components/ui/card";
 import Navbar from "../../components/ui/navbar";
-import GallerySection from "../../components/ui/gallery";
 import Footer from "../../components/ui/footer";
 import { useBookingModal } from "../../components/BookingModalProvider";
 const testimonials = [
@@ -39,87 +38,78 @@ const testimonials = [
 
 const faqItems = [
   {
-    question: "What is this?",
-    answer:
-      "This is the answer to the above question it contains random texts. It will be only plain text without any additional media.",
+    question: "Do rooms have Wi-Fi and work desks?",
+    answer: "Yes. Complimentary high-speed Wi-Fi is available across rooms and common areas; most rooms include a dedicated work desk.",
     isOpen: false,
   },
   {
-    question: "What is this?",
-    answer: "",
-    isOpen: true,
-  },
-  {
-    question: "What is this?",
-    answer: "",
+    question: "What payment modes do you accept?",
+    answer: "UPI, credit/debit cards, net banking, and bank transfer. Corporate bookings can request a GST invoice.",
     isOpen: false,
   },
   {
-    question: "What is this?",
-    answer: "",
+    question: "What are the check-in and check-out times?",
+    answer: "Check-in: 12:00 PM · Check-out: 11:00 AM. Early check-in/late check-out is subject to availability and may incur a fee.",
     isOpen: false,
   },
   {
-    question: "What is this?",
-    answer: "",
+    question: "Do you have power backup?",
+    answer: "Yes, 100% power backup for events and rooms, including stage and catering areas.",
     isOpen: false,
   },
   {
-    question: "What is this?",
-    answer: "",
+    question: "Is there parking and valet?",
+    answer: "On-site parking for approximately 40 cars. Valet service is available on request.",
+    isOpen: false,
+  },
+  {
+    question: "Can we host pre-wedding shoots or use drones?",
+    answer: "Yes, with prior permission. Drone usage must comply with DGCA rules and property safety norms.",
+    isOpen: false,
+  },
+  {
+    question: "Where are you located and how do we reach?",
+    answer: "We’re at Sahraspali, Sahodara (In front of Bharat Petroleum), Ballia-277001.",
+    isOpen: false,
+  },
+  {
+    question: "What amenities do you provide in rooms?",
+    answer: "Premium bedding, toiletries, hot water, Wi-Fi, TV, and more are provided.",
+    isOpen: false,
+  },
+  {
+    question: "Lost & Found policy",
+    answer: "Items found on property are logged and stored for 30 days. Contact us with description/date to claim.",
     isOpen: false,
   },
 ];
 
 const galleryImages = [
-  {
-    src: "/hotel1.jpg",
-    alt: "Hotel Image 1",
-  },
-  {
-    src: "/hotel2.jpg",
-    alt: "Hotel Image 2",
-  },
-  {
-    src: "/hotel3.jpg",
-    alt: "Hotel Image 3",
-  },
-  {
-    src: "/hotel4.jpg",
-    alt: "Hotel Image 4",
-  },
-  {
-    src: "/hotel1.jpg",
-    alt: "Hotel Image 1",
-  },
-  {
-    src: "/hotel2.jpg",
-    alt: "Hotel Image 2",
-  },
-  {
-    src: "/hotel3.jpg",
-    alt: "Hotel Image 3",
-  },
-  {
-    src: "/hotel4.jpg",
-    alt: "Hotel Image 4",
-  },
+  { src: "/jmb1.jpg", alt: "JMB Image 1" },
+  { src: "/jmb2.jpg", alt: "JMB Image 2" },
+  { src: "/jmb3.jpg", alt: "JMB Image 3" },
+  { src: "/jmb4.jpg", alt: "JMB Image 4" },
+  { src: "/jmb5.jpg", alt: "JMB Image 5" },
+  { src: "/jmb6.jpg", alt: "JMB Image 6" },
+  { src: "/jmb7.jpg", alt: "JMB Image 7" },
+  { src: "/jmb8.jpg", alt: "JMB Image 8" },
+  { src: "/jmb9.jpg", alt: "JMB Image 9" },
+  { src: "/jmb10.jpg", alt: "JMB Image 10" },
+  { src: "/jmb11.jpg", alt: "JMB Image 11" },
+  { src: "/jmb12.jpg", alt: "JMB Image 12" },
+  { src: "/jmb13.jpg", alt: "JMB Image 13" },
 ];
 
 export const Desktop = (): JSX.Element => {
   const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [isGalleryFaded, setIsGalleryFaded] = useState(false);
+  const [isPaused] = useState(false);
+  const [isGalleryFaded] = useState(false);
   
   const testimonialsPerPage = 11; // Show all testimonials in diamond pattern
   const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
 
-  // Function to get current testimonials with smooth transition
-  const getCurrentTestimonials = () => {
-    const startIndex = currentTestimonialPage * testimonialsPerPage;
-    return testimonials.slice(startIndex, startIndex + testimonialsPerPage);
-  };
+  // Testimonials are rendered directly from the testimonials array in the scroller
 
   // Navigation functions with smooth transitions
   const nextTestimonials = () => {
@@ -132,30 +122,9 @@ export const Desktop = (): JSX.Element => {
     }, 200);
   };
 
-  const prevTestimonials = () => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentTestimonialPage((prev) => (prev - 1 + totalPages) % totalPages);
-      setTimeout(() => setIsTransitioning(false), 100);
-    }, 200);
-  };
+  // previous testimonial navigation not used in UI
 
-  // Handle manual navigation with pause
-  const handleManualNavigation = (direction: 'next' | 'prev') => {
-    setIsPaused(true);
-    if (direction === 'next') {
-      nextTestimonials();
-    } else {
-      prevTestimonials();
-    }
-    
-    // Resume auto-scroll after 8 seconds
-    setTimeout(() => {
-      setIsPaused(false);
-    }, 8000);
-  };
+  // (manual navigation handler removed — unused in UI)
 
   // Auto-scroll effect
   useEffect(() => {
@@ -168,10 +137,10 @@ export const Desktop = (): JSX.Element => {
     return () => clearInterval(interval);
   }, [currentTestimonialPage, isPaused]);
 
-  const currentTestimonials = getCurrentTestimonials();
+  // current testimonials are derived when rendering; avoid unused local
 
   // Gallery pagination state (show 4 images at a time, advance by 2)
-  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [galleryIndex] = useState(0);
   const navigate = useNavigate();
   const bookingModal = useBookingModal();
 
@@ -271,8 +240,8 @@ export const Desktop = (): JSX.Element => {
       </Button>
 
 
-      <h2 id="virtual-tour" className="relative mt-24 text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl">
-        Virtual Tour
+      <h2 id="virtual-invitation" className="relative mt-24 text-center [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl">
+        Virtual Invitation
       </h2>
 
       <div className="relative mt-24 mx-auto max-w-6xl px-0 md:px-0 lg:px-0 aspect-video bg-[#d9d9d9] flex items-center justify-center overflow-hidden rounded-lg">
@@ -284,8 +253,8 @@ export const Desktop = (): JSX.Element => {
           muted
           playsInline
         >
-          <source src="/hotelvid.mp4" type="video/mp4" />
-          <source src="/virtual-tour-video.webm" type="video/webm" />
+          <source src="/hotelnew.mp4" type="video/mp4" />
+          <source src="/hotelnew.webm" type="video/webm" />
           Your browser does not support the video tag.
         </video>
       </div>
