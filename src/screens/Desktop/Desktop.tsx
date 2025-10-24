@@ -1,4 +1,3 @@
-import { Star as StarIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -8,33 +7,11 @@ import {
   AccordionTrigger,
 } from "../../components/ui/accordion";
 import { Button } from "../../components/ui/button";
-import { Card, CardContent } from "../../components/ui/card";
+// Card components used only by testimonials (commented out)
 import Navbar from "../../components/ui/navbar";
 import Footer from "../../components/ui/footer";
 import { useBookingModal } from "../../components/BookingModalProvider";
-const testimonials = [
-  {
-    name: "Suresh Kumar",
-    comment: "Really loved the blah blah blah...",
-    rating: 5,
-  },
-  {
-    name: "Suresh Kumar",
-    comment: "No Comments",
-    rating: 5,
-  },
-  {
-    name: "Suresh Kumar",
-    comment: "Really loved the blah blah blah...",
-    rating: 5,
-  },
-  {
-    name: "Suresh Kumar",
-    comment: "Really loved the blah blah blah...",
-    rating: 5,
-  },
-  
-];
+// testimonials data removed — section commented out
 
 const faqItems = [
   {
@@ -101,45 +78,8 @@ const galleryImages = [
 ];
 
 export const Desktop = (): JSX.Element => {
-  const [currentTestimonialPage, setCurrentTestimonialPage] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [isPaused] = useState(false);
+  // gallery state and booking modal
   const [isGalleryFaded] = useState(false);
-  
-  const testimonialsPerPage = 11; // Show all testimonials in diamond pattern
-  const totalPages = Math.ceil(testimonials.length / testimonialsPerPage);
-
-  // Testimonials are rendered directly from the testimonials array in the scroller
-
-  // Navigation functions with smooth transitions
-  const nextTestimonials = () => {
-    if (isTransitioning) return;
-    
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentTestimonialPage((prev) => (prev + 1) % totalPages);
-      setTimeout(() => setIsTransitioning(false), 100);
-    }, 200);
-  };
-
-  // previous testimonial navigation not used in UI
-
-  // (manual navigation handler removed — unused in UI)
-
-  // Auto-scroll effect
-  useEffect(() => {
-    if (isPaused) return;
-    
-    const interval = setInterval(() => {
-      nextTestimonials();
-    }, 4000); // Change every 4 seconds
-
-    return () => clearInterval(interval);
-  }, [currentTestimonialPage, isPaused]);
-
-  // current testimonials are derived when rendering; avoid unused local
-
-  // Gallery pagination state (show 4 images at a time, advance by 2)
   const [galleryIndex] = useState(0);
   const navigate = useNavigate();
   const bookingModal = useBookingModal();
@@ -295,129 +235,7 @@ export const Desktop = (): JSX.Element => {
 
      
 
-      <section className="relative mt-24  w-full ">
-        <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12 ">
-          Testimonials
-        </h2>
-
-       
-
-        {/* Simple auto-scrolling testimonials (horizontal) */}
-        <style>
-          {` .outerDiv { width: 100%; display: block; }
-              /* column gap (horizontal) then row gap (vertical) — adjust values as needed */
-              .scroller { display: grid; grid-auto-flow: column; column-gap: 1rem; row-gap: 2rem; align-items:start; animation: scroll 20s linear infinite; padding-top : 1rem ; padding-bottom : 1rem; }
-              .scroller .card { width: 30vw; height: 25vh; }
-              /* duplicate set width should be half of total scroller width — using translateX(-50%) works with duplicated content */
-              @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-          `}
-        </style>
-
-        <div className="outerDiv mt-6 p-0">
-         <div className="scroller">
-            {testimonials.map((testimonial, index) => (
-            
-                <Card
-                key={index}
-                className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
-              >
-                <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
-                    {testimonial.name}
-                  </h3>
-
-                  <div className="flex gap-1 justify-start">
-                    {Array.from({ length: testimonial.rating }).map(
-                      (_, starIndex) => (
-                        <StarIcon
-                          key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
-                  >
-                    {testimonial.comment}
-                  </p>
-                </CardContent>
-              </Card>
-            
-            ))}
-          </div>
-          <div className="scroller" style={{ animation: 'scroll 20s linear infinite' }}>
-            <div className="w-[20vw]">
-
-            </div>
-            {testimonials.map((testimonial, index) => (
-            
-                <Card
-                key={index}
-                className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
-              >
-                <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
-                    {testimonial.name}
-                  </h3>
-
-                  <div className="flex gap-1 justify-start">
-                    {Array.from({ length: testimonial.rating }).map(
-                      (_, starIndex) => (
-                        <StarIcon
-                          key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
-                  >
-                    {testimonial.comment}
-                  </p>
-                </CardContent>
-              </Card>
-            
-            ))}
-          </div>
-          <div className="scroller">
-            {testimonials.map((testimonial, index) => (
-            
-                <Card
-                key={index}
-                className="w-full  bg-white rounded-[20px] shadow-[0px_0px_15px_5px_#00000040] card"
-              >
-                <CardContent className="p-5 flex flex-col gap-3 items-start text-left">
-                  <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-lg tracking-[0] leading-[normal]">
-                    {testimonial.name}
-                  </h3>
-
-                  <div className="flex gap-1 justify-start">
-                    {Array.from({ length: testimonial.rating }).map(
-                      (_, starIndex) => (
-                        <StarIcon
-                          key={starIndex}
-                          className="w-7 h-7 md:w-8 md:h-8 fill-yellow-400 text-yellow-400"
-                        />
-                      ),
-                    )}
-                  </div>
-
-                  <p
-                    className={`[font-family:'Inria_Serif',Helvetica] ${testimonial.comment === "No Comments" ? "font-light" : "font-normal"} text-black text-base md:text-lg tracking-[0] leading-[normal] mt-2`}
-                  >
-                    {testimonial.comment}
-                  </p>
-                </CardContent>
-              </Card>
-            
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Testimonials section commented out */}
 
       <section className="relative mt-24 mx-auto max-w-5xl px-4 md:px-8 lg:px-12 py-12">
         <h2 className="text-left [font-family:'Inria_Serif',Helvetica] font-bold text-black text-3xl md:text-4xl lg:text-5xl mb-12">
