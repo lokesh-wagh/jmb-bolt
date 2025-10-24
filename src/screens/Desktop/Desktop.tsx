@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Accordion,
@@ -92,7 +92,7 @@ export const Desktop = (): JSX.Element => {
       id="home"
         className="relative  left-0 w-full object-cover"
         alt="Building"
-        src="/building-2-1.png"
+        src="/f2.png"
       />
 
       <div className="absolute top-[145vh] left-0 right-0 h-20 bg-gradient-to-t from-white to-transparent backdrop-blur-sm" />
@@ -214,11 +214,13 @@ export const Desktop = (): JSX.Element => {
 
         <div className="flex flex-col items-center gap-6">
           <div className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-white rounded-full shadow-[0px_0px_25px_5px_#00000040] overflow-hidden flex items-center justify-center">
-            <img
-              className="w-[95%] h-[95%] rounded-full border-[0.5px] border-solid border-black object-cover"
-              alt="Founder"
-              src="/founder-1.png"
-            />
+            <a href="https://www.facebook.com/share/1FXZKNCM5g/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
+              <img
+                className="w-[95%] h-[95%] rounded-full border-[0.5px] border-solid border-black object-cover"
+                alt="Founder"
+                src="/founder-1.png"
+              />
+            </a>
           </div>
 
           <h3 className="[font-family:'Inria_Serif',Helvetica] font-bold text-black text-2xl md:text-3xl lg:text-4xl text-center">

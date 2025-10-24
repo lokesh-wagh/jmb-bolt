@@ -40,9 +40,9 @@ const Footer: React.FC = () => (
                 <div className="[font-family:'Inria_Serif',Helvetica] text-white text-sm md:text-base">
                     <span className="font-bold underline block mb-2">Call us on</span>
                     <span>
-                        +91 99999 99991<br />
-                        +91 99999 99992<br />
-                        +91 99999 99993
+                        +91 87658 14455<br />
+                        +91 94580 45952 <br />
+                        +91 95540 65861
                     </span>
                 </div>
 
